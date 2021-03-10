@@ -3,18 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientesModule } from './clientes/clientes.module';
-import { helloComponent } from './hello/hello.component';
+import { TemplateModule } from './template/template.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    helloComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ClientesModule
+    TemplateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
