@@ -1,10 +1,25 @@
 <h1 class="mt-4">Clientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Cadastro</li>
+    <li class="breadcrumb-item active">{{ cliente.id ? 'Alteração de Cliente' : 'Cadastro de Cliente'}}</li>
 </ol>
 <div class="container">
     <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+
         <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="sucesso==true">
+                    Cliente salvo \ atualizado com sucesso!
+                  </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of erros">
+                    {{ erro }}
+                  </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="cliente.id">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>ID</label>
@@ -18,7 +33,9 @@
                     <input type="text" class="form-control" [ngModel]="cliente.dataCadastro" name="dataCadastro" disabled=true/>
                 </div>
             </div>
+         </div>
 
+         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nome *</label>
@@ -34,9 +51,16 @@
             </div>
         </div>   
         <div class="row">
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-success">
-                    <i class="fa fa-save"></i>Salvar
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
+                    <i class="fa fa-save" ></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
+                    <i class="fa fa-sync-alt" ></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
                 </button>
             </div>
         </div>
