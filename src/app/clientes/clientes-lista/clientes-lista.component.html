@@ -4,6 +4,20 @@
 </ol>
 <div class="container">
     <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+              </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro }}
+              </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-2">
             <button class="btn btn-warning" (click)="novoCadastro()">
                 <i class="fa fa-plus"></i> Novo
@@ -33,10 +47,34 @@
                             <button class="btn btn-primary" routerLink="/clientes-form/{{ cliente.id }}">
                                 <i class="fa fa-edit"></i>
                             </button>
+
+                            <button class="btn btn-danger" data-toggle="modal" (click)="preparaDelecao(cliente)"
+                                data-target="#modalDelecao">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação de Deleção</h4>
+                </div>
+
+                <div class="modal-body" *ngIf="clienteSelecionado">
+                  Deseja realmente deletar o cliente {{ clienteSelecionado.nome }}?
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deletarCliente()" data-dismiss="modal"> Confirma </button>
+                    <button class="btn btn-danger" data-dismiss="modal"> Cancela </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

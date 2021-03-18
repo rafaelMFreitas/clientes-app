@@ -37,6 +37,7 @@ export class ClientesFormComponent implements OnInit {
       .subscribe( response => {
         this.sucesso = true;
         this.erros = [];
+        //this.voltarParaListagem();
       }, errorResponse => {
         this.erros = ['Erro ao atualizar os cliente'];
       })
@@ -46,6 +47,7 @@ export class ClientesFormComponent implements OnInit {
         this.sucesso = true;
         this.erros = [];
         this.cliente = response;
+        //this.voltarParaListagem();
       }, errorResponse => {
         this.erros = errorResponse.error.errors;
       })
