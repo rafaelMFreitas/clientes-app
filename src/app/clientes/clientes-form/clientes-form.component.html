@@ -1,6 +1,6 @@
 <h1 class="mt-4">Clientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">{{ cliente.id ? 'Alteração de Cliente' : 'Cadastro de Cliente'}}</li>
+    <li class="breadcrumb-item active">{{ cliente.id ? 'Alteração' : 'Cadastro'}}</li>
 </ol>
 <div class="container">
     <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
