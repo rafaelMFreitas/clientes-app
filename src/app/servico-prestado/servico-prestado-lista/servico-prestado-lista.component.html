@@ -1,1 +1,95 @@
-<p>servico-prestado-lista works!</p>
+<h1 class="mt-4">Serviço Prestado</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+
+<div class="container">
+    <form #servicoLista="ngForm" (ngSubmit)="consultar()">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputNome">Nome Cliente: </label>
+                <input type="text" [(ngModel)]="nome" 
+                    name="nome" id="inputNome" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                <label>Mês:</label>
+                <select class="form-control" 
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="mes">
+                    <option value=""> Selecione...</option>
+                    <option *ngFor="let mes of meses" [ngValue]="mes">
+                        {{ mes }}
+                    </option>
+                </select>
+                </div>
+            </div>
+        </div>  
+
+        <div class="row">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search" ></i> Consultar
+                </button>
+
+                <button type="button" class="btn btn-warning ml-1" (click)=novoCadastro()>
+                    <i class="fa fa-plus" ></i> Novo
+                </button>
+            </div>
+            
+        </div>
+        <br/>
+        <div class="row" *ngIf="message || lista">
+            <div class="col-md-12">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Descricao</th>
+                            <th>Valor</th>
+                            <th>Data Cadastro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let servico of lista">
+                            <td>{{ servico.cliente.nome }}</td>
+                            <td>{{ servico.descricao }}</td>
+                            <td>{{ servico.valor }}</td>
+                            <td>{{ servico.data }}</td>
+                            <td>
+                                <button class="btn btn-primary" routerLink="">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button class="btn btn-danger" data-toggle="modal"
+                                    data-target="#modalDelecao">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>                    
+                        </tr>
+                        {{ message }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="modalDelecao" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Confirmação de Deleção</h4>
+                    </div>
+
+                    <div class="modal-body" *ngIf="">
+                    Deseja realmente deletar o serviço?
+                    </div>
+
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
