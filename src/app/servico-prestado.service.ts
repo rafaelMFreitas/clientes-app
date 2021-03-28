@@ -14,15 +14,34 @@ export class ServicoPrestadoService {
 
   constructor(private http: HttpClient) { }
 
+  obterServicoById(id : number) : Observable<ServicoPrestado>{
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
+
   salvar(servicoPrestado : ServicoPrestado) : Observable<ServicoPrestado> {
     return this.http.post<ServicoPrestado>(`${this.apiURL}`, servicoPrestado);
   }
 
-  buscar(nome: string, mes: number) : Observable<ServicoPrestadoBusca[]>{
+  //buscar(nome: string, mes: number) : Observable<ServicoPrestadoBusca[]>{
+  //  const params = new HttpParams()
+  //  .set("nome", nome)
+  //  .set("mes", mes ?  mes.toString() : '');
+    
+  //  return this.http.get<any[]>(this.apiURL + "?" + params.toString());
+  // }
+
+  buscar(nome: string) : Observable<ServicoPrestadoBusca[]>{
     const params = new HttpParams()
-    .set("nome", nome)
-    .set("mes", mes ?  mes.toString() : '');
+    .set("nome", nome);
     
     return this.http.get<any[]>(this.apiURL + "?" + params.toString());
+  }
+
+  atualizar(servicoPrestado : ServicoPrestado) : Observable<ServicoPrestado> {
+    return this.http.put<ServicoPrestado>(`${this.apiURL}/${servicoPrestado.id}`, servicoPrestado);
+  }
+
+  deletar(servicoPrestado : ServicoPrestado) : Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${servicoPrestado.id}`);
   }
 }

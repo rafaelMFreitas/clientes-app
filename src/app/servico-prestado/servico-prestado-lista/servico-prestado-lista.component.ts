@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicoPrestadoService } from 'src/app/servico-prestado.service';
+import { ServicoPrestado } from '../servicoPrestado';
 import { ServicoPrestadoBusca } from './servicoPrestadoBusca';
 
 @Component({
@@ -14,7 +15,10 @@ nome : string;
 mes : number;
 meses : number [];
 lista : ServicoPrestadoBusca [];
+servicoSelecionado: ServicoPrestado; 
 message : string;
+mensagemSucesso : String;
+mensagemErro : String;
 
   constructor(
     private service : ServicoPrestadoService, 
@@ -30,7 +34,7 @@ message : string;
   }
 
   consultar() : void {
-    this.service.buscar(this.nome, this.mes)
+    this.service.buscar(this.nome)
     .subscribe( resposta => {
       this.lista = resposta;
       if(this.lista.length <= 0) {
@@ -39,5 +43,20 @@ message : string;
         this.message = '';
       }
     });
+  }
+
+  preparaDelecao(servicoSelecionado : ServicoPrestado) {
+    this.servicoSelecionado = servicoSelecionado;
+  }
+
+  deletar() {
+    this.service
+      .deletar(this.servicoSelecionado)
+      .subscribe( 
+        resposta =>{ 
+          this.mensagemSucesso = 'Serviço prestado deletado com sucesso!',
+          this.consultar();
+        }, 
+        erro => this.mensagemErro = 'Ocorreu um erro ao deletar o serviço prestado');
   }
 }

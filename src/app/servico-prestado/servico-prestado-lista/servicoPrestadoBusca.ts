@@ -1,6 +1,7 @@
 import { Cliente } from "../../clientes/cliente";
 
-export  class ServicoPrestadoBusca{
+export  class ServicoPrestadoBusca {
+    id: number;
     descricao: string;
     valor: number;
     data: string;

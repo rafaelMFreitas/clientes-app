@@ -4,6 +4,20 @@
 </ol>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+                {{ mensagemSucesso }}
+              </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+                {{ mensagemErro }}
+              </div>
+        </div>
+    </div>
+
     <form #servicoLista="ngForm" (ngSubmit)="consultar()">
         <div class="row">
             <div class="col-md-6">
@@ -11,7 +25,7 @@
                 <input type="text" [(ngModel)]="nome" 
                     name="nome" id="inputNome" class="form-control">
             </div>
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
                 <div class="form-group">
                 <label>Mês:</label>
                 <select class="form-control" 
@@ -23,9 +37,9 @@
                     </option>
                 </select>
                 </div>
-            </div>
+            </div>-->
         </div>  
-
+        <br/>
         <div class="row">
             <div class="col-md-3">
                 <button type="submit" class="btn btn-primary">
@@ -58,11 +72,11 @@
                             <td>{{ servico.valor }}</td>
                             <td>{{ servico.data }}</td>
                             <td>
-                                <button class="btn btn-primary" routerLink="">
+                                <button class="btn btn-primary" routerLink="/servico-prestado-form/{{ servico.id }}">
                                     <i class="fa fa-edit"></i>
                                 </button>
-
-                                <button class="btn btn-danger" data-toggle="modal"
+    
+                                <button class="btn btn-danger" data-toggle="modal" (click)="preparaDelecao(servico)"
                                     data-target="#modalDelecao">
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -81,12 +95,13 @@
                         <h4>Confirmação de Deleção</h4>
                     </div>
 
-                    <div class="modal-body" *ngIf="">
-                    Deseja realmente deletar o serviço?
+                    <div class="modal-body" *ngIf="servicoSelecionado">
+                    Deseja realmente deletar o serviço {{ servicoSelecionado.descricao }}?
                     </div>
 
                     <div class="modal-footer">
-                        
+                        <button class="btn btn-success" (click)="deletar()" data-dismiss="modal"> Confirma </button>
+                        <button class="btn btn-danger" data-dismiss="modal"> Cancela </button>
                     </div>
                 </div>
             </div>
