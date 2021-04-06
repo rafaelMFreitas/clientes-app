@@ -30,7 +30,7 @@ mensagemErro : String;
   }
 
   novoCadastro() {
-    this.router.navigate(['/servico-prestado-form']);
+    this.router.navigate(['/servicos-prestados/form']);
   }
 
   consultar() : void {
